@@ -4,8 +4,8 @@ import { Task, TaskState } from '../types/types';
 
 let INIT = false // Flag to check if CSRF token has been fetched
 let csrfToken = '' // CSRF token to be stored here
-const URL = import.meta.env.VITE_SERVER_URL; // URL to be used for API requests
-
+//const URL = import.meta.env.VITE_SERVER_URL; // URL to be used for API requests
+const URL = 'http://localhost:8000'
 
 const initialState: TaskState = { // Initial state for tasks
     tasks: [],
