@@ -1,0 +1,58 @@
+.taskCreator {
+    margin: 20px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  .title{
+    display: flex;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+    color:rgb(92, 92, 92)
+  }
+  
+  .taskCreator input,
+  .taskCreator textarea {
+    display: flex;
+    width: 50vw;
+    max-height: 50dvh;
+    max-height: 50vh;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+    overflow: auto;
+  }
+  
+  .taskCreator button {
+    width: 100%;
+    background-color: green; 
+    border: 1px solid white;
+    color: white;
+    padding: 14px 20px;
+    margin: 10px 0;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .taskCreator button:hover {
+    background-color: black; 
+    border: 1px solid white;
+    color: white;
+  }
+  .inputError {
+    border: 1px solid red;
+  }
+  
+  .errorText {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 2px;
+  }

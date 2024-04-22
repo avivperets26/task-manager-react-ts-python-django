@@ -1,0 +1,24 @@
+.taskCreator input,
+.taskCreator textarea {
+  display: flex;
+  width: 50vw;
+  max-height: 50dvh;
+  max-height: 50vh;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
+  overflow: auto;
+}
+
+.inputError {
+    border: 1px solid red;
+  }
+  
+  .errorText {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 2px;
+  }

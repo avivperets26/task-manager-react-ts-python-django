@@ -1,0 +1,109 @@
+.navbar {
+  position: relative;
+  height: 10vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #000000;
+  padding: 10px 20px;
+  
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  background-color: #f1f1f1;
+  border-radius: 50px;
+  padding: 5px;
+  width: 300px;
+  margin-right: 10px;
+}
+
+.searchInput {
+  flex-grow: 1;
+  border: none;
+  background-color: transparent;
+  padding: 10px 20px;
+  font-size: 16px;
+  outline: none;
+}
+
+.searchIcon {
+  height: 20px;
+  margin-left: 10px;
+}
+.titleContainer{
+  position: absolute;
+  right: 50%;
+  transform : translate(50%, 0);
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  margin-left: 10px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 24px;
+  color: #ffffff;
+}
+
+.buttonsContainer{
+  position: absolute;
+  right: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.titleContainer,
+.buttonsContainer {
+    flex-shrink: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    height: auto; /* Allow the navbar to grow as needed */
+    padding: 10px;
+    align-items: center; /* Center-align items for a cleaner look */
+  }
+
+  .searchContainer {
+    width: 80%; /* Reduce the width of the search bar */
+    height: 1.5rem;;
+    margin: 10px 0 0; /* Position at the bottom with margin-top */
+    order: 3; /* Make the search bar appear last */
+  }
+
+  .titleContainer,
+  .buttonsContainer {
+    position: static;
+    transform: none; /* Remove transformations and positioning */
+    width: 100%; /* Full width to utilize space */
+    justify-content: center; /* Center content */
+    order: 1; /* Ensure title is at the top */
+    margin: 5px 0; /* Add some vertical spacing */
+  }
+
+  .logo {
+    width: 40px; /* Adjust size to better fit on small screens */
+    height: auto; /* Maintain aspect ratio */
+  }
+
+  .title {
+    font-size: 5vw; /* Responsive font size */
+    text-align: center; /* Ensure title is centered */
+  }
+
+  .buttonsContainer {
+    order: 2; /* Buttons come after the title */
+  }
+}

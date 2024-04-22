@@ -1,0 +1,19 @@
+.loadingContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fade-in-out 1s infinite;
+    font-size: 2rem;
+    font-weight: bold;
+    gap:1rem;
+}
+
+.logoIcon {
+    height: 20px;
+    margin-right: 10px;
+}
+
+@keyframes fade-in-out {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+}

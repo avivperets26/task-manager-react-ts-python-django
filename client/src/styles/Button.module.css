@@ -1,0 +1,29 @@
+.Button {
+    background-color: var(--color); 
+    border: 1px solid var(--border-color);
+    color: var(--font-color);
+    border-radius: 5px;
+    padding: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 1rem;
+  }
+  
+  .Button:hover {
+    background-color: var(--hover-color); 
+    color: var(--hover-font-color);
+    border: 1px solid var(--hover-border-color);
+  }
+  
+
+  @media screen and (max-width: 768px){
+    .Button {
+      padding: 10px;
+      font-size: 0.8rem;
+    } 
+    .Button:hover {
+      background-color: var(--color);
+      border: 1px solid var(--border-color);
+      color: var(--font-color);
+    }
+  }

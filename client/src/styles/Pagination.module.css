@@ -1,0 +1,23 @@
+.paginationContainer {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    align-items: center;
+    padding: 10px;  
+  }
+  
+  .pagination div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;  
+  }
+  
+  @media screen and (max-width: 768px){
+    .paginationContainer {
+      gap: 2rem;
+      padding: 0px; 
+      margin-top: 1rem;
+    }
+
+  }
