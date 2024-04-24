@@ -18,5 +18,5 @@ from django.contrib import admin
 from django.urls import include, path  
 urlpatterns = [ # URL patterns
     path('admin/', admin.site.urls), # Admin URL
-    path('tasks/', include('tasks.urls')), # Tasks URL
+     path('tasks/', include('tasks.urls', namespace='tasks')),  # Tasks URL with namespace
 ] 

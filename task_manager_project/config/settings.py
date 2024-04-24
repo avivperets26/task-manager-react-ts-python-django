@@ -52,8 +52,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles', # Django static files app
     'rest_framework', # Django REST framework
     'tasks', # Tasks app
-    'users', # Users app
-    'network', # Network app
+    'analyzer',  # Ensure your analyzer app is listed
+    'node',    # Ensure your node app is listed
 ]
 
 MIDDLEWARE = [ # Middleware classes
