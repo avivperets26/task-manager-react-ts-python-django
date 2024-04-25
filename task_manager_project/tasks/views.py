@@ -1,12 +1,25 @@
+# task_manager_project\tasks\views.py
+
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .models import Task
 from .serializers import TaskSerializer
+from .utils import add_task_to_redis  # Ensure this utility function is correctly imported
+from rest_framework import viewsets
+
+
+class TaskViewSet(viewsets.ModelViewSet):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
 
 class TaskListCreateAPIView(generics.ListCreateAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
+
+    def perform_create(self, serializer):
+        instance = serializer.save()
+        add_task_to_redis(instance)  # Push the new task to Redis
 
 class TaskDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Task.objects.all()
@@ -18,9 +31,20 @@ def get_csrf_token(request):
     csrf_token = get_token(request)
     return Response({'csrf_token': csrf_token})
 
-
-
-
+@api_view(['POST'])
+def task_results(request):
+    # Here you would handle the task results
+    task_id = request.data.get('task_id')
+    status = request.data.get('status')
+    verdict = request.data.get('verdict')
+    
+    # Update task based on the results
+    task = Task.objects.get(id=task_id)
+    task.status = status
+    task.verdict = verdict
+    task.save()
+    
+    return Response({"message": "Task updated successfully"})
 
 # from django.http import HttpResponse ,JsonResponse
 # from .models import Task  # Import the Task model

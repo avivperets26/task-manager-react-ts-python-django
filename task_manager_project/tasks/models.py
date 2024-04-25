@@ -1,3 +1,4 @@
+# task_manager_project\tasks\models.py
 from django.db import models
 import uuid
 from django.utils import timezone
@@ -19,15 +20,18 @@ class Task(models.Model):
 
     task_id = models.AutoField(primary_key=True)
     object = models.UUIDField(default=uuid.uuid4, editable=False)
+    title = models.CharField(max_length=255, default='')
+    description = models.TextField(blank=True)  # Allow description to be empty
+    created_by = models.CharField(max_length=255, blank=True)  # Allow createdBy to be empty
     status = models.IntegerField(choices=STATUS_CHOICES, default=0)
     creation_ts = models.DateTimeField(default=timezone.now)
     completed_ts = models.DateTimeField(null=True, blank=True)
     verdict = models.IntegerField(choices=VERDICT_CHOICES)
-    
-    analyzer = models.ForeignKey(Analyzer, on_delete=models.CASCADE, related_name='tasks', null=True, blank=True) # Add analyzer field One-to-many Relationship from Analyzer to Task
-    
+    analyzer = models.ForeignKey(Analyzer, on_delete=models.CASCADE, related_name='tasks', null=True, blank=True)
+
     def __str__(self):
         return f"Task {self.task_id}"
+
 
 
 

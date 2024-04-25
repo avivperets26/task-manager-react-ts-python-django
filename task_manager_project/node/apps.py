@@ -1,3 +1,5 @@
+# task_manager_project\node\apps.py
+
 from django.apps import AppConfig
 
 class NodeConfig(AppConfig):

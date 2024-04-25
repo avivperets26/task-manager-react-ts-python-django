@@ -1,3 +1,4 @@
+# task_manager_project\analyzer\apps.py
 from django.apps import AppConfig
 
 class AnalyzerConfig(AppConfig):

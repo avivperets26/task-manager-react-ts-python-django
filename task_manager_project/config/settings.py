@@ -107,7 +107,7 @@ CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'http://localhost:5173'] # Trus
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/' # Static URL
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] # Static files directories
+#STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] # Static files directories
 MEDIA_URL = '/media/' # Media URL
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # Media root
 

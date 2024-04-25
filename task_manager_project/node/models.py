@@ -1,4 +1,4 @@
-# node/models.py
+# task_manager_project\node\models.pynode/models.py
 from django.db import models
 
 class Node(models.Model):

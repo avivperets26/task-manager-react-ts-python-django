@@ -1,3 +1,6 @@
-from django.contrib import admin
+# task_manager_project\node\admin.py
 
-# Register your models here.
+from django.contrib import admin
+from .models import Node
+
+admin.site.register(Node)

@@ -1,3 +1,5 @@
+# task_manager_project\tasks\urls.py
+
 from django.urls import path
 from .views import TaskListCreateAPIView, TaskDetailAPIView, get_csrf_token
 
