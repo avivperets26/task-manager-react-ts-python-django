@@ -19,7 +19,7 @@ signal.signal(signal.SIGINT, signal_handler)
 
 logging.basicConfig(level=logging.INFO)
 # Redis connection
-redis_conn = redis.Redis(host='localhost', port=6379, db=0)
+redis_conn = redis.Redis(host='redis', port=6379, db=0)
 # Node endpoint for task analysis
 node_ip = '127.0.0.1'
 ANALYZE_URL = f'http://{node_ip}:8080/analyze/'
