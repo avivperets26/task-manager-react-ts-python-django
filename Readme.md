@@ -93,9 +93,3 @@ Provide unit tests for all of the above projects, mock unimportant IO operations
 
 # Task 5 : Docker
 Create a Dockerfile for it, optimize it towards the size of a final image and time to build.
-
-# Feedbacks
-1. Database is missing most models. There is only model for Tasks, i don't see any models for Node nor Analyzer
-2. because of that there is no fronted nor backed ops for those models
-3. task 4 is to provide unit-tests for all of the above - so backend, frontend, and worker
-4. task 3 is incomplete, there is no api calls to created service nor task submission to virtual analyzer

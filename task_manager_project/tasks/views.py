@@ -21,6 +21,14 @@ class TaskListCreateAPIView(generics.ListCreateAPIView):
         instance = serializer.save()
         add_task_to_redis(instance)  # Push the new task to Redis
 
+    def get(self, request, *args, **kwargs):
+        # Handle GET request to list tasks
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        # Handle POST request to create a new task
+        return self.create(request, *args, **kwargs)
+
 class TaskDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer

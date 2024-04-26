@@ -22,16 +22,14 @@ from django.urls import include, path
 from rest_framework.routers import DefaultRouter 
 from node.views import NodeViewSet
 from analyzer.views import AnalyzerViewSet
-from tasks.views import TaskViewSet
 
 router = DefaultRouter()
 router.register(r'nodes', NodeViewSet)
 router.register(r'analyzers', AnalyzerViewSet)
-router.register(r'tasks', TaskViewSet)
 
 urlpatterns = [ # URL patterns
     path('admin/', admin.site.urls), # Admin URL
-    #path('tasks/', include('tasks.urls', namespace='tasks')),  # Tasks URL with namespace
+    path('tasks/', include('tasks.urls', namespace='tasks')),  # Tasks URL with namespace
     path('api/', include(router.urls)),
     #path('', include(router.urls)),
 ] 
