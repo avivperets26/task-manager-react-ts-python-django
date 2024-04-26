@@ -30,6 +30,5 @@ router.register(r'analyzers', AnalyzerViewSet)
 urlpatterns = [ # URL patterns
     path('admin/', admin.site.urls), # Admin URL
     path('tasks/', include('tasks.urls', namespace='tasks')),  # Tasks URL with namespace
-    path('api/', include(router.urls)),
-    #path('', include(router.urls)),
+    path('api/', include(router.urls)), # API URL
 ] 

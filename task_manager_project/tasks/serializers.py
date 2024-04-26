@@ -1,11 +1,9 @@
-# task_manager_project\tasks\serializers.py
-
 from rest_framework import serializers
 from django.core.serializers import serialize
 from .models import Task
 import json
 
-class TaskSerializer(serializers.ModelSerializer):
+class TaskSerializer(serializers.ModelSerializer): # Add TaskSerializer class
     class Meta:
         model = Task
         fields = '__all__'

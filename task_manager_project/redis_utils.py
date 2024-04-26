@@ -1,4 +1,3 @@
-# task_manager_project\redis_utils.py
 import logging
 import redis
 import json

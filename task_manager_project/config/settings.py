@@ -56,9 +56,9 @@ INSTALLED_APPS = [
     'node',    # Ensure your node app is listed
 ]
 
-REST_FRAMEWORK = {
+REST_FRAMEWORK = { # REST framework settings
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 5  # You can adjust the number of items per page here
+    'PAGE_SIZE': 5  # can adjust the number of items per page here
 }
 
 MIDDLEWARE = [ # Middleware classes

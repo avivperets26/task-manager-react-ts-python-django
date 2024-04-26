@@ -1,4 +1,3 @@
-# task_manager_project\tasks\apps.py
 
 from django.apps import AppConfig
 

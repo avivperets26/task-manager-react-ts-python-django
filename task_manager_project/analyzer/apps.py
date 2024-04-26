@@ -1,6 +1,5 @@
-# task_manager_project\analyzer\apps.py
 from django.apps import AppConfig
 
-class AnalyzerConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'analyzer'
+class AnalyzerConfig(AppConfig): # Add AnalyzerConfig class
+    default_auto_field = 'django.db.models.BigAutoField' # Add default_auto_field attribute
+    name = 'analyzer' # Add name attribute

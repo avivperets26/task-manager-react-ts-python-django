@@ -11,8 +11,8 @@ from .serializers import TaskSerializer
 from .utils import get_redis_connection, add_task_to_redis
 from django.core.exceptions import ValidationError
 
-class TaskModelTestCase(TestCase):
-    def test_task_creation(self):
+class TaskModelTestCase(TestCase): 
+    def test_task_creation(self): 
         """
         Test that tasks are created correctly.
         """
@@ -23,7 +23,7 @@ class TaskModelTestCase(TestCase):
             created_by='Test User',
             status=0,
             creation_ts=timezone.now(),
-            verdict=2  # Assuming 'clean' as the default verdict
+            verdict=2  
         )
         
         # Retrieve the task from the database
@@ -36,9 +36,9 @@ class TaskModelTestCase(TestCase):
         self.assertEqual(saved_task.status, 0)
         self.assertEqual(saved_task.verdict, 2)  # Clean verdict
 
-    # Add more test cases here
+    
 
-class TaskViewSetTestCase(TestCase):
+class TaskViewSetTestCase(TestCase): 
     def test_list_tasks(self):
         Task.objects.create(title='Test Task 1', status=0, verdict=2)
         Task.objects.create(title='Test Task 2', status=1, verdict=1)

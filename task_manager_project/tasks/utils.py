@@ -1,9 +1,8 @@
-# task_manager_project/tasks/utils.py
 import redis
 from django.conf import settings
 from .serializers import serialize_task_for_storage
 
-def get_redis_connection():
+def get_redis_connection(): 
     """
     Helper function to get a Redis connection using the Django settings.
     """

@@ -1,5 +1,3 @@
-# task_manager_project\scripts\task_worker.py
-
 #! /usr/bin/env python
 
 import requests
@@ -31,33 +29,33 @@ HEADERS = {'Authorization': 'Token yourapitokenhere'}
 def validate_task(task_data):
     # Check that the task data contains the expected keys
     required_keys = ['op', 'object', 'type']
-    if not all(key in task_data for key in required_keys):
-        logging.error(f"Invalid task data: {task_data}")
+    if not all(key in task_data for key in required_keys): # Check if all required keys are present
+        logging.error(f"Invalid task data: {task_data}") # Log an error message
         return False
     return True
 
 
-def get_task(task_id):
+def get_task(task_id): # Function to get a task by ID
     try:
-        response = requests.get(f"{API_URL}{task_id}/", headers=HEADERS)
-        response.raise_for_status()
+        response = requests.get(f"{API_URL}{task_id}/", headers=HEADERS) # Send a GET request to the API
+        response.raise_for_status() # Raise an exception for non-200 responses
         
-    except requests.exceptions.RequestException as e:
-        logging.error(f"Failed to get task {task_id}: {str(e)}")
+    except requests.exceptions.RequestException as e: # Handle request exceptions
+        logging.error(f"Failed to get task {task_id}: {str(e)}") # Log an error message
         return None
     
     return response.json()
 
-def create_task(data):
+def create_task(data): # Function to create a task
     try:
         response = requests.post(API_URL, json=data, headers=HEADERS)
         response.raise_for_status()
         return response.json()
-    except requests.exceptions.RequestException as e:
+    except requests.exceptions.RequestException as e: # Handle request exceptions
         logging.error(f"Failed to create task: {str(e)}")
         return None
 
-def update_task(task_id, data):
+def update_task(task_id, data): # Function to update a task
     try:
         response = requests.put(f"{API_URL}{task_id}/", json=data, headers=HEADERS)
         response.raise_for_status()
@@ -66,7 +64,7 @@ def update_task(task_id, data):
         logging.error(f"Failed to update task {task_id}: {str(e)}")
         return None
 
-def delete_task(task_id):
+def delete_task(task_id): # Function to delete a task
     try:
         response = requests.delete(f"{API_URL}{task_id}/", headers=HEADERS)
         response.raise_for_status()
@@ -131,26 +129,6 @@ def worker():
         else:
             logging.info("No task found in the queue")  # Log a message when no task is found
         time.sleep(1)  # Sleep for a second before checking for the next task
-
-
-# def worker():
-#     while True:
-#         try:
-#             # Fetch all tasks from the API
-#             tasks_response = requests.get(API_URL, headers=HEADERS)
-#             tasks_response.raise_for_status()  # Raise an exception for non-200 responses
-#             tasks = tasks_response.json()
-            
-#             for task in tasks:
-#                 task_id = task.get('task_id')
-#                 if not get_task(task_id):
-#                     create_task(task)
-#                 process_task(task)
-        
-#         except requests.exceptions.RequestException as e:
-#             logging.error(f"Failed to fetch tasks: {str(e)}")
-        
-#         sleep(5)  # Sleep for a while before checking for new tasks again
 
 if __name__ == "__main__":
     worker()

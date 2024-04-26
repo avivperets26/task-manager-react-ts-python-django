@@ -1,4 +1,3 @@
-# task_manager_project\manage.py
 
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
@@ -9,7 +8,7 @@ import sys
 def main(): # pragma: no cover
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings') # Set the DJANGO_SETTINGS_MODULE environment variable
-    try: # Try to import the execute_from_command_line function
+    try: 
         from django.core.management import execute_from_command_line # Import the execute_from_command_line function
     except ImportError as exc: # Handle ImportError
         raise ImportError( # Raise ImportError

@@ -1,12 +1,11 @@
-# task_manager_project\tasks\models.py
 from django.db import models
 import uuid
 from django.utils import timezone
 from analyzer.models import Analyzer
 
     
-class Task(models.Model):
-    STATUS_CHOICES = (
+class Task(models.Model): # Change the class name to Task
+    STATUS_CHOICES = ( 
         (0, 'waiting'),
         (1, 'processing'),
         (2, 'finished'),

@@ -1,9 +1,7 @@
-# task_manager_project\node\serializers.py
-
 from rest_framework import serializers
 from .models import Node
 
-class NodeSerializer(serializers.ModelSerializer):
-    class Meta:
+class NodeSerializer(serializers.ModelSerializer): # Add NodeSerializer class
+    class Meta: # Add Meta class
         model = Node
         fields = '__all__'
