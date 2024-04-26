@@ -37,8 +37,8 @@ export const fetchCsrfToken = createAsyncThunk('tasks/fetchCsrfToken', async () 
 });
 // Async thunk actions
 
-export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async (page: number) => {
-    const response = await fetch(`${URL}/tasks/?page=${page}`, {
+export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async (page: number) => { // Async thunk to fetch tasks
+    const response = await fetch(`${URL}/tasks/?page=${page}`, { // Ensure the URL is correct and includes the page number
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -49,8 +49,8 @@ export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async (page: numb
 });
 
 
-export const fetchTask = createAsyncThunk('tasks/fetchTask', async (id: number) => {
-    const response = await fetch(`${URL}/tasks/${id}/`, {
+export const fetchTask = createAsyncThunk('tasks/fetchTask', async (id: number) => { // Async thunk to fetch a single task
+    const response = await fetch(`${URL}/tasks/${id}/`, { // Ensure the URL is correct and includes the task ID
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -121,7 +121,6 @@ export const createTask = createAsyncThunk('tasks/createTask', async (task: Task
     return await response.json();
 });
 
-// More thunks for create, update, delete...
 
 // The slice
 export const tasksSlice = createSlice({
@@ -139,7 +138,7 @@ export const tasksSlice = createSlice({
             })
             .addCase(fetchTasks.fulfilled, (state, action) => { // Fetch tasks fulfilled
                 state.status = 'succeeded';
-                state.tasks = {
+                state.tasks = { // Update the tasks
                     count: action.payload.count,
                     next: action.payload.next,
                     previous: action.payload.previous,

@@ -8,6 +8,8 @@ import Pagination from "./Pagination";
 import EmptyOrErrorState from "./EmptyOrErrorState";
 import { getCurrentPage } from "../helpers/helpers";
 
+// TaskList component that displays a list of tasks and handles pagination and search filtering of tasks based on the search term entered by the user
+
 const TaskList = () => {
   const { tasks, searchTerm, loading } = useSelector(
     (state: RootState & { status: boolean }) => ({

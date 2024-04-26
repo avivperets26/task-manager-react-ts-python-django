@@ -9,6 +9,8 @@ type TaskEditorProps = {
   onClose: () => void;
 };
 
+// TaskEditor component that displays a form to edit a task object and dispatches an action to update the task
+
 const TaskEditor = ({ taskId, onClose }: TaskEditorProps) => {
   const dispatch = useDispatch<AppDispatch>();
   const task = useSelector((state: RootState) => selectTaskById(state, taskId));

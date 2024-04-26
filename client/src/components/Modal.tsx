@@ -2,6 +2,8 @@ import ReactDOM from "react-dom";
 import styles from "../styles/Modal.module.css";
 import Button from "./Button";
 
+// Modal component that displays a modal with a message and two buttons (approve and cancel) to confirm or cancel an action
+
 const Modal = ({
   isOpen,
   onClose,

@@ -5,6 +5,8 @@ interface TooltipProps {
   title: string;
 }
 
+// Tooltip component that displays a tooltip with a title when the user hovers over the children element
+
 const Tooltip: React.FC<TooltipProps> = ({ children, title }) => {
   return (
     <div className={styles.tooltip}>

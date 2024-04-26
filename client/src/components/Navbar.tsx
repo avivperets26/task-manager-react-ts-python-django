@@ -7,6 +7,8 @@ import debounce from "lodash.debounce";
 import { setSearchTerm } from "../store/taskSlice";
 import { useDispatch } from "react-redux";
 
+// Navbar component that contains the search input and the new task button to create a new task
+
 const Navbar = () => {
   const [isTaskCreatorOpen, setIsTaskCreatorOpen] = useState(false); // This is a state variable that is used to determine if the task creator modal is open or not
   const dispatch = useDispatch();

@@ -12,7 +12,6 @@ describe("Modal component", () => {
     // Cleanup the document body
     document.body.innerHTML = "";
   });
-  // Test 1: Renders correctly
   it("renders correctly when open", () => {
     const { getByText } = render(
       <Modal
@@ -28,7 +27,6 @@ describe("Modal component", () => {
     expect(getByText("Test content")).toBeInTheDocument();
   });
 
-  // Test 2: Close action
   it("calls onClose when the close button is clicked", async () => {
     let onCloseCalled = false;
     const onClose = () => {
@@ -45,11 +43,10 @@ describe("Modal component", () => {
         <div>Test content</div>
       </Modal>
     );
-    fireEvent.click(screen.getByText("Cancel")); // Ensure this matches the text or label of your close button
+    fireEvent.click(screen.getByText("Cancel"));
     expect(onCloseCalled).toBe(true);
   });
 
-  // Test 3: Confirm action
   it("calls onConfirm when the confirm button is clicked", async () => {
     let onConfirmCalled = false;
     const onConfirm = () => {
@@ -66,7 +63,7 @@ describe("Modal component", () => {
         <div>Test content</div>
       </Modal>
     );
-    fireEvent.click(screen.getByText("Confirm")); // Ensure this matches the text or label of your confirm button
+    fireEvent.click(screen.getByText("Confirm"));
     expect(onConfirmCalled).toBe(true);
   });
 });

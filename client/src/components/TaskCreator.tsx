@@ -5,6 +5,8 @@ import { useDispatch } from "react-redux";
 import Button from "./Button";
 import { AppDispatch } from "../store/store";
 
+// TaskCreator component that allows the user to create a new task with a title, description, and author (optional) and set the status of the task
+
 const TaskCreator = () => {
   const [title, setTitle] = useState(""); // This is a state variable that is used to store the title of the task
   const [description, setDescription] = useState(""); // This is a state variable that is used to store the description of the task
@@ -38,7 +40,7 @@ const TaskCreator = () => {
       description,
       created_by: author || "Anonymous",
       status,
-      creation_ts: new Date().toISOString(), // Add this line
+      creation_ts: new Date().toISOString(),
       completed_ts: new Date().toISOString(),
       verdict: 2,
       analyzer: 3,

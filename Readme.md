@@ -3,14 +3,43 @@
 
 This application is a task manager where users can create, update, and delete tasks. It's built using a Python/Django backend, a Vite/React frontend, and Redis for the database. The application is containerized using Docker for easy setup and deployment.
 
-## Backend
+## Installation Steps
 
+1. Clone the project from the git repository.
+2. docker-compose up --build
+
+run the following commands in the terminal:
+```bash 
+git clone
+cd task-manager
+docker-compose up --build
+```
+
+## Backend API
 The backend is built with Python and Django. Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design. It takes care of much of the hassle of web development, so you can focus on writing your app without needing to reinvent the wheel.
+The backend API has the following endpoints:
+
+- **GET /api/tasks/**: Get all tasks.
+- **POST /api/tasks/**: Create a new task.
+- **GET /api/tasks/:id/**: Get a task by ID.
+- **PUT /api/tasks/:id/**: Update a task by ID.
+- **DELETE /api/tasks/:id/**: Delete a task by ID.
+- **GET /api/nodes/**: Get all nodes.
+- **POST /api/nodes/**: Create a new node.
+- **GET /api/nodes/:id/**: Get a node by ID.
+- **PUT /api/nodes/:id/**: Update a node by ID.
+- **DELETE /api/nodes/:id/**: Delete a node by ID.
+- **GET /api/analyzers/**: Get all analyzers.
+- **POST /api/analyzers/**: Create a new analyzer.
+- **GET /api/analyzers/:id/**: Get an analyzer by ID.
+- **PUT /api/analyzers/:id/**: Update an analyzer by ID.
+- **DELETE /api/analyzers/:id/**: Delete an analyzer by ID.
+- **GET /api/tasks/:id/analyze/**: Analyze a task by ID.
+- **GET /api/tasks/:id/result/**: Get the result of a task by ID.
 
 ## Frontend
 
 The frontend is built with Vite, React.js, and TypeScript. 
-
 - **React**: A JavaScript library for building user interfaces.
 - **TypeScript**: A typed superset of JavaScript that compiles to plain JavaScript.
 - **Vite**: A build tool that aims to provide a faster and leaner development experience for modern web projects.
@@ -18,19 +47,89 @@ The frontend is built with Vite, React.js, and TypeScript.
 - **Redux Toolkit**: The official, opinionated, batteries-included toolset for efficient Redux development.
 - **CSS Modules**: A CSS file in which all class names and animation names are scoped locally by default.
 
+The frontend has the following pages:
 
-The application also uses Redux Toolkit for state management and CSS modules for styling.
+- **Home**: Displays all tasks.
+- **Create Task**: Allows users to create a new task.
+- **Update Task**: Allows users to update an existing task.
+- **Delete Task**: Allows users to delete a task.
+- **Task Details**: Displays the details of a task.
+- **Analyzer List**: Displays all analyzers.
+- **Analyze Task**: Allows users to analyze a task.
+- **Result Task**: Displays the result of a task.
+- **404**: Displays a 404 error page.
+- **500**: Displays a 500 error page.
+- **Loading**: Displays a loading spinner.
+- **Error**: Displays an error message.
+- **Header**: Displays the header with navigation links.
+- **Footer**: Displays the footer with social media links.
+- **Task Item**: Displays a single task.
 
-## Installation Steps
+The frontend uses React Router for routing and Axios for making HTTP requests.
 
-1. Clone the project from the git repository.
-2. Install the dependencies using `npm install`.
-3. Run the application using `vite`.
-4. Run the tests using `vitest` or `npm test`.
+## Styling
 
-## Testing
+The application uses CSS modules for styling. CSS modules are a way to write CSS that's scoped to a single component, which makes it easier to manage styles and avoid naming conflicts.
+
+## State Management
+
+The application uses Redux Toolkit for state management. Redux Toolkit is the official, opinionated, batteries-included toolset for efficient Redux development.
+
+## Form Validation
+
+The application uses Yup for form validation. Yup is a JavaScript schema builder for value parsing and validation.
+
+## Error Handling
+
+The application uses Axios interceptors to handle errors globally. Axios interceptors allow you to run your code or modify the request or response before the request or response is sent or received.
+
+## Loading State
+
+The application uses a loading spinner to indicate when data is being fetched. The loading spinner is displayed while the data is being fetched and hidden once the data has been fetched.
+
+## Error State
+
+The application displays an error message when an error occurs. The error message is displayed when an error occurs and hidden once the error has been resolved.
+
+## Responsive Design
+
+The application is responsive and works on all devices. It uses CSS media queries to adjust the layout based on the screen size.
+
+## SEO
+
+The application uses React Helmet to manage the document head of the application. React Helmet is a reusable React component that manages all of your changes to the document head.
+
+## Accessibility
+
+The application is accessible and follows best practices for web accessibility. It uses semantic HTML elements, ARIA attributes, and focus management to ensure that the application is usable by everyone.
+
+## Performance
+
+The application is optimized for performance and follows best practices for web performance. It uses lazy loading, code splitting, and image optimization to ensure that the application loads quickly and runs smoothly.
+
+## Security
+
+The application is secure and follows best practices for web security. It uses HTTPS, content security policy, and input validation to prevent common security vulnerabilities.
+
+## Code Quality
+
+The application follows best practices for code quality and maintainability. It uses ESLint and Prettier to enforce code style and formatting rules.
+
+## Documentation
+
+The application is well-documented and follows best practices for documentation. It uses JSDoc comments to document the code and explain how it works.
+
+## Unit Testing
+
+The application uses Jest and React Testing Library for unit testing. Jest is a JavaScript testing framework designed to ensure correctness and React Testing Library is a simple and complete testing library for React.
 
 The application uses Vitest for testing. Vitest is a fast and lightweight testing framework designed specifically for Vite. It supports both unit and end-to-end testing.
+
+The application has unit tests for the components, hooks, and utilities. The tests cover the happy path and edge cases to ensure the code works as expected.
+
+## Django Testing
+
+The application uses Django's built-in testing framework for testing the backend API. The tests cover the happy path and edge cases to ensure the API endpoints work as expected.
 
 ## Database
 
@@ -40,21 +139,11 @@ The application uses Redis as its database. Redis is an open-source, in-memory d
 
 The application is containerized using Docker, which simplifies deployment and ensures the application runs the same way in every environment.
 
-## Installation Steps
-
-1. Build the Docker image: `docker build -t <app name> .`
-2. Run the Docker container: `docker run -p 8000:8000 <app name>`
-
-Replace `<app name>` with the name you want to give to your Docker image.
-
 ## Additional Tools
 
 Postman is used for testing the API endpoints.
 
 Please follow the installation steps to set up the project. If you encounter any issues, feel free to reach out.
-
-
-
 
 
 ### Task Requirments

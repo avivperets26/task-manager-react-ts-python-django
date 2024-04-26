@@ -9,6 +9,8 @@ interface PaginationProps {
   previous: string | null;
 }
 
+// Pagination component that displays the next and previous buttons to navigate through the pages of a list of items
+
 const Pagination: React.FC<PaginationProps> = ({
   next,
   previous,

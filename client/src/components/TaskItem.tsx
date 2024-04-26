@@ -11,6 +11,8 @@ interface TaskItemProps {
   taskId: number;
 }
 
+// TaskItem component that displays a task with its title, status, and actions (edit, delete, expand/collapse) and allows the user to edit or delete the task
+
 const TaskItem: React.FC<TaskItemProps> = ({ taskId }) => {
   const task = useSelector((state: RootState) => selectTaskById(state, taskId)); // This line is used to get the task by id from the redux store
   const dispatch = useDispatch<AppDispatch>();
