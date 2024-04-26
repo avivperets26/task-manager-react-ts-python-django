@@ -1,29 +1,36 @@
 import React from "react";
 import Button from "./Button";
 import styles from "../styles/Pagination.module.css";
-
+import type { Pagination } from "../types/types";
+import { getCurrentPage } from "../helpers/helpers";
 interface PaginationProps {
-  currentPage: number;
-  totalTasks: number;
-  pageSize: number;
   onPageChange: (page: number) => void;
+  next: string | null;
+  previous: string | null;
 }
 
 const Pagination: React.FC<PaginationProps> = ({
-  currentPage,
-  totalTasks,
-  pageSize,
+  next,
+  previous,
   onPageChange,
 }) => {
-  const totalPages = Math.ceil(totalTasks / pageSize); // This variable is used to calculate the total number of pages
-
   return (
     <div className={styles.paginationContainer}>
-      {currentPage > 1 && (
-        <Button onClick={() => onPageChange(currentPage - 1)}>Previous</Button> // This button is used to navigate to the previous page
+      {previous && (
+        <Button
+          onClick={() =>
+            onPageChange(Math.max(1, getCurrentPage(next, previous) - 1))
+          }
+        >
+          Previous
+        </Button>
       )}
-      {currentPage < totalPages && (
-        <Button onClick={() => onPageChange(currentPage + 1)}>Next</Button> // This button is used to navigate to the next page
+      {next && (
+        <Button
+          onClick={() => onPageChange(getCurrentPage(next, previous) + 1)}
+        >
+          Next
+        </Button>
       )}
     </div>
   );

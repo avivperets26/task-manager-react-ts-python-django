@@ -10,6 +10,7 @@ const TaskCreator = () => {
   const [description, setDescription] = useState(""); // This is a state variable that is used to store the description of the task
   const [author, setAuthor] = useState(""); // This is a state variable that is used to store the author of the task
   const [errors, setErrors] = useState({ title: "", description: "" }); // This is a state variable that is used to store the errors
+  const [status, setStatus] = useState(0);
   const dispatch = useDispatch<AppDispatch>();
 
   const handleCreateTask = () => {
@@ -32,21 +33,15 @@ const TaskCreator = () => {
       return; // Stop the function if there are errors
     }
 
-    // const task = {
-    //   // This object is used to store the task details
-    //   title,
-    //   description,
-    //   createdBy: author || "Anonymous",
-    //   type: 1,
-    // };
-
     const task = {
-      object: {
-        title,
-        description,
-        createdBy: author || "Anonymous",
-      },
-      type: 1,
+      title,
+      description,
+      created_by: author || "Anonymous",
+      status,
+      creation_ts: new Date().toISOString(), // Add this line
+      completed_ts: new Date().toISOString(),
+      verdict: 2,
+      analyzer: 3,
     };
     dispatch(createTask(task)); // This function is used to create a new task
     setTitle(""); // This function is used to reset the title
@@ -86,6 +81,15 @@ const TaskCreator = () => {
         value={author}
         onChange={(e) => setAuthor(e.target.value)}
       />
+      <select
+        value={status}
+        onChange={(e) => setStatus(Number(e.target.value))}
+        className={styles.select}
+      >
+        <option value={0}>To Do</option>
+        <option value={1}>In Progress</option>
+        <option value={2}>Done</option>
+      </select>
       <Button onClick={handleCreateTask}>Create</Button>
     </div>
   );

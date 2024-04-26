@@ -1,23 +1,29 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import type { RootState } from './store';
 import { Task, TaskState } from '../types/types';
+import { getCurrentPage } from '../helpers/helpers';
 
 let INIT = false // Flag to check if CSRF token has been fetched
 let csrfToken = '' // CSRF token to be stored here
 //const URL = import.meta.env.VITE_SERVER_URL; // URL to be used for API requests
 const URL = 'http://localhost:8000'
 
-const initialState: TaskState = { // Initial state for tasks
-    tasks: [],
+const initialState: TaskState = {
+    tasks: {
+        count: 0,
+        next: null,
+        previous: null,
+        results: [],
+    },
     status: 'idle',
     error: null,
     searchTerm: '',
-    currentPage: 1,
-    totalTasks: 0
 };
 
+
 export const selectTaskById = (state: RootState, taskId: number) =>
-    state.tasks.tasks.find(task => task.id === taskId); // Select task by id
+    state.taskSlice.tasks.results.find(task => task.task_id === taskId); // Select task by id
+
 
 export const fetchCsrfToken = createAsyncThunk('tasks/fetchCsrfToken', async () => { // Async thunk to fetch CSRF token
     if (!INIT) { // Check if CSRF token has been fetched
@@ -28,17 +34,29 @@ export const fetchCsrfToken = createAsyncThunk('tasks/fetchCsrfToken', async () 
         csrfToken = data.csrf_token; // Store the CSRF token
         INIT = true; // Set the flag to true
     }
-
 });
 // Async thunk actions
 
-export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async (page: number = 1) => { // Async thunk to fetch tasks
-    const response = await fetch(`${URL}/tasks/?page=${page}`); // Fetch tasks from the server
+export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async (page: number) => {
+    const response = await fetch(`${URL}/tasks/?page=${page}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+        },
+    });
     return await response.json();
 });
 
-export const fetchTask = createAsyncThunk('tasks/fetchTask', async (id: number) => { // Async thunk to fetch a single task
-    const response = await fetch(`${URL}/tasks/${id}`); // Fetch a single task from the server
+
+export const fetchTask = createAsyncThunk('tasks/fetchTask', async (id: number) => {
+    const response = await fetch(`${URL}/tasks/${id}/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+        },
+    });
     return await response.json();
 });
 
@@ -58,7 +76,7 @@ export const deleteTask = createAsyncThunk('tasks/deleteTask', async (id: number
     }
 
     // After deletion, fetch the current page again
-    const currentPage = (getState() as RootState).tasks.currentPage;
+    const currentPage = getCurrentPage((getState() as RootState).taskSlice.tasks.next, (getState() as RootState).taskSlice.tasks.previous);
     dispatch(fetchTasks(currentPage));
 
     return id; // return the id to remove it from the state
@@ -66,11 +84,10 @@ export const deleteTask = createAsyncThunk('tasks/deleteTask', async (id: number
 
 
 export const updateTask = createAsyncThunk('tasks/updateTask', async (task: Task) => { // Async thunk to update a task
-    const response = await fetch(`${URL}/tasks/${task.id}/update/`, { // Ensure the URL is correct and includes the '/update/' if necessary as per your Django URLs
+    const response = await fetch(`${URL}/tasks/${task.task_id}/`, { // Ensure the URL is correct and includes the '/update/' if necessary as per your Django URLs
         method: 'PATCH', // Use PATCH as per your backend expectation
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRFToken': csrfToken, // Ensure CSRF token is sent correctly
         },
         credentials: 'include',
         body: JSON.stringify(task),
@@ -86,11 +103,10 @@ export const updateTask = createAsyncThunk('tasks/updateTask', async (task: Task
 
 export const createTask = createAsyncThunk('tasks/createTask', async (task: Task, { dispatch, getState }) => { // Async thunk to create a task
 
-    const response = await fetch(`${URL}/tasks/create/`, { // Ensure the URL is correct and includes the '/create/' if necessary as per your Django URLs
+    const response = await fetch(`${URL}/tasks/`, { // Ensure the URL is correct and includes the '/create/' if necessary as per your Django URLs
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRFToken': csrfToken,
         },
         credentials: 'include',
         body: JSON.stringify(task),
@@ -100,7 +116,7 @@ export const createTask = createAsyncThunk('tasks/createTask', async (task: Task
     }
 
     // After creation, fetch the current page again
-    const currentPage = (getState() as RootState).tasks.currentPage;
+    const currentPage = getCurrentPage((getState() as RootState).taskSlice.tasks.next, (getState() as RootState).taskSlice.tasks.previous);
     dispatch(fetchTasks(currentPage));
     return await response.json();
 });
@@ -109,7 +125,7 @@ export const createTask = createAsyncThunk('tasks/createTask', async (task: Task
 
 // The slice
 export const tasksSlice = createSlice({
-    name: 'tasks',  // Name of the slice
+    name: 'tasksSlice',  // Name of the slice
     initialState, // Initial state
     reducers: { // Reducers
         setSearchTerm(state, action) { // Set search term   
@@ -123,9 +139,12 @@ export const tasksSlice = createSlice({
             })
             .addCase(fetchTasks.fulfilled, (state, action) => { // Fetch tasks fulfilled
                 state.status = 'succeeded';
-                state.tasks = action.payload.tasks;
-                state.totalTasks = action.payload.totalTasks;
-                state.currentPage = action.payload.currentPage;
+                state.tasks = {
+                    count: action.payload.count,
+                    next: action.payload.next,
+                    previous: action.payload.previous,
+                    results: action.payload.results, // Add the 'results' property
+                };
             })
             .addCase(fetchTasks.rejected, (state, action) => { // Fetch tasks rejected
                 state.status = 'failed';
@@ -135,7 +154,7 @@ export const tasksSlice = createSlice({
                 state.status = 'loading';
             })
             .addCase(deleteTask.fulfilled, (state, action) => { // Delete task fulfilled
-                state.tasks = state.tasks.filter(task => task.id !== action.payload);  // Remove the task
+                state.tasks.results = state.tasks.results.filter(task => task.task_id !== action.payload);  // Remove the task
                 state.status = 'succeeded';
             })
             .addCase(deleteTask.rejected, (state, action) => { // Delete task rejected
@@ -145,11 +164,12 @@ export const tasksSlice = createSlice({
             .addCase(updateTask.pending, (state) => { // Update task pending
                 state.status = 'loading';
             })
-            .addCase(updateTask.fulfilled, (state, action) => { // Update task fulfilled
+            .addCase(updateTask.fulfilled, (state, action) => {
                 const updatedTask = action.payload;
-                const index = state.tasks.findIndex(task => task.id === updatedTask.id); // Find the task index
-                if (index !== -1) {  // Check if the task exists
-                    state.tasks[index] = updatedTask;
+                const existingTask = state.tasks.results.find(task => task.task_id === updatedTask.task_id);
+                if (existingTask) {
+                    // Replace the existing task with the updated task
+                    state.tasks.results[state.tasks.results.indexOf(existingTask)] = updatedTask;
                 }
             })
             .addCase(updateTask.rejected, (state, action) => {   // Update task rejected
@@ -160,7 +180,7 @@ export const tasksSlice = createSlice({
                 state.status = 'loading';
             })
             .addCase(createTask.fulfilled, (state, action) => { // Create task fulfilled
-                state.tasks.unshift(action.payload); // This should prepend the new task
+                state.tasks.results.unshift(action.payload); // This should prepend the new task
                 state.status = 'succeeded';
             })
             .addCase(createTask.rejected, (state, action) => { // Create task rejected
@@ -182,7 +202,7 @@ export const tasksSlice = createSlice({
 
 export const { setSearchTerm } = tasksSlice.actions; // Export actions
 
-export const selectTasks = (state: RootState) => state.tasks.tasks; // Select tasks
-export const selectTasksStatus = (state: RootState) => state.tasks.status; // Select tasks status
+export const selectTasks = (state: RootState) => state.taskSlice; // Select tasks
+export const selectTasksStatus = (state: RootState) => state.taskSlice.status; // Select tasks status
 
 export default tasksSlice.reducer; // Export reducer

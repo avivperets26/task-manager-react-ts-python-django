@@ -30,7 +30,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ taskId }) => {
 
   const handleDelete = () => {
     // This function is used to handle the deletion of a task
-    dispatch(deleteTask(task.id!));
+    dispatch(deleteTask(task.task_id!));
     closeDeleteModal();
   };
   const handleExtendClick = () => {
@@ -46,6 +46,23 @@ const TaskItem: React.FC<TaskItemProps> = ({ taskId }) => {
       >
         <div className={styles.taskContent}>
           <div className={styles.taskTitle}>{task.title}</div>
+          {task.status !== 3 && (
+            <div
+              className={`${styles.taskStatus} ${
+                task.status === 0
+                  ? styles.taskStatusToDo
+                  : task.status === 1
+                  ? styles.taskStatusInProgress
+                  : styles.taskStatusDone
+              }`}
+            >
+              {task.status === 0
+                ? "To Do"
+                : task.status === 1
+                ? "In Progress"
+                : "Done"}
+            </div>
+          )}
         </div>
         <div className={styles.taskActions}>
           <Tooltip title="Edit Task">
@@ -86,8 +103,10 @@ const TaskItem: React.FC<TaskItemProps> = ({ taskId }) => {
           }`}
         >
           <p>Description: {task.description}</p>
-          <p>Author: {task.createdBy || "None"}</p>
-          <p>Created Date: {new Date(task.createdAt!).toLocaleDateString()}</p>
+          <p>Author: {task.created_by || "None"}</p>
+          <p>
+            Created Date: {new Date(task.creation_ts!).toLocaleDateString()}
+          </p>
         </div>
       )}
       <Modal
@@ -107,7 +126,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ taskId }) => {
         approveText="Update"
         cancelText="Cancel"
       >
-        <TaskEditor taskId={task.id!} onClose={closeEditModal} />
+        <TaskEditor taskId={task.task_id!} onClose={closeEditModal} />
       </Modal>
     </>
   );

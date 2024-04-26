@@ -16,7 +16,7 @@
   }
   
   .taskCreator input,
-  .taskCreator textarea {
+  .taskCreator textarea, .taskCreator select {
     display: flex;
     width: 50vw;
     max-height: 50dvh;
@@ -29,6 +29,27 @@
     resize: vertical;
     overflow: auto;
   }
+
+ .select{
+    width: 50vw;
+    max-height: 50dvh;
+    max-height: 50vh;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    resize: vertical;
+    overflow: auto;
+    font-size: 1rem;
+    color:rgb(92, 92, 92)
+  }
+  
+  .taskCreator label {
+    font-size: 1rem;
+    font-weight: bold;
+    color:rgb(92, 92, 92)
+ }
   
   .taskCreator button {
     width: 100%;
@@ -56,3 +77,5 @@
     font-size: 0.8rem;
     margin-top: 2px;
   }
+
+  

@@ -1,12 +1,13 @@
 # task_manager_project\tasks\urls.py
 
 from django.urls import path
-from .views import TaskListCreateAPIView, TaskDetailAPIView, get_csrf_token
+from .views import TaskListCreateAPIView, TaskDetailAPIView, get_csrf_token,TaskListView
 
 app_name = 'tasks'  # Define the app name that acts as the namespace
 
 urlpatterns = [
     path('', TaskListCreateAPIView.as_view(), name='task-list-create'),
+    path('tasks/', TaskListView.as_view(), name='task-list'),
     path('<int:pk>/', TaskDetailAPIView.as_view(), name='task-detail'),
     path('csrf/', get_csrf_token, name='get-csrf-token'),  # If CSRF token view is needed
 ]

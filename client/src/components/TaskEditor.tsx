@@ -17,13 +17,13 @@ const TaskEditor = ({ taskId, onClose }: TaskEditorProps) => {
   const [description, setDescription] = useState("");
   const [createdBy, setCreatedBy] = useState("");
   const [errors, setErrors] = useState({ title: "", description: "" });
-
+  const [status, setStatus] = useState(task?.status || 0);
   useEffect(() => {
     // Update the form fields when the task changes
     if (task) {
       setTitle(task.title); // Set the title from the task object
       setDescription(task.description); // Set the description from the task object
-      setCreatedBy(task.createdBy || ""); // Set the createdBy from the task object
+      setCreatedBy(task.created_by || ""); // Set the createdBy from the task object
     }
   }, [task]);
 
@@ -47,12 +47,13 @@ const TaskEditor = ({ taskId, onClose }: TaskEditorProps) => {
       // Check if the task exists
       const updatedTask = {
         // Create an updated task object
-        id: taskId,
+        task_id: task.task_id,
         title,
         description,
-        createdBy: createdBy || "Anonymous",
-        createdAt: task.createdAt || "", // Provide a default value
-        type: task.type,
+        created_by: createdBy,
+        status,
+        verdict: task.verdict,
+        analyzer: task.analyzer,
       };
       dispatch(updateTask(updatedTask));
     }
@@ -99,6 +100,15 @@ const TaskEditor = ({ taskId, onClose }: TaskEditorProps) => {
         onChange={(e) => setCreatedBy(e.target.value)}
         className={styles.inputField}
       />
+      <select
+        value={status}
+        onChange={(e) => setStatus(Number(e.target.value))}
+        className={styles.select}
+      >
+        <option value={0}>To Do</option>
+        <option value={1}>In Progress</option>
+        <option value={2}>Done</option>
+      </select>
       <button onClick={handleUpdateTask} className={styles.submitButton}>
         Update
       </button>

@@ -1,0 +1,39 @@
+version: "3.8"
+services:
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379" # Standard Redis port
+
+  backend:
+    build: ./task_manager_project
+    ports:
+      - "8000:8000" # Main API port
+    depends_on:
+      - redis
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    command: python manage.py runserver 0.0.0.0:8000
+
+  analyzer:
+    build: ./task_manager_project
+    ports:
+      - "8080:8080" # Port for the analyze endpoint
+    depends_on:
+      - redis
+    command: python manage.py runserver 0.0.0.0:8080
+
+  client:
+    build: ./client
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+  worker:
+    build: ./task_manager_project
+    depends_on:
+      - redis
+      - backend
+    command: python scripts/task_worker.py

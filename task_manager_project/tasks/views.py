@@ -1,6 +1,6 @@
 # task_manager_project\tasks\views.py
 
-from rest_framework import generics, status
+from rest_framework import generics,pagination
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .models import Task
@@ -8,6 +8,11 @@ from .serializers import TaskSerializer
 from .utils import add_task_to_redis  # Ensure this utility function is correctly imported
 from rest_framework import viewsets
 
+
+class TaskListView(generics.ListAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+    pagination_class = pagination.PageNumberPagination
 
 class TaskViewSet(viewsets.ModelViewSet):
     queryset = Task.objects.all()

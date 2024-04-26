@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { render, fireEvent } from "@testing-library/react";
 import Pagination from "./Pagination";
 
@@ -7,9 +7,8 @@ describe("Pagination component", () => {
     const handlePageChange = vi.fn();
     const { getByText, queryByText } = render(
       <Pagination
-        currentPage={1}
-        totalTasks={15}
-        pageSize={5}
+        next="http://example.com/page/2"
+        previous={null}
         onPageChange={handlePageChange}
       />
     );
@@ -21,9 +20,8 @@ describe("Pagination component", () => {
     const handlePageChange = vi.fn();
     const { getByText } = render(
       <Pagination
-        currentPage={2}
-        totalTasks={15}
-        pageSize={5}
+        next="http://example.com/page/3"
+        previous="http://example.com/page/1"
         onPageChange={handlePageChange}
       />
     );
@@ -35,9 +33,8 @@ describe("Pagination component", () => {
     const handlePageChange = vi.fn();
     const { getByText, queryByText } = render(
       <Pagination
-        currentPage={3}
-        totalTasks={15}
-        pageSize={5}
+        next={null}
+        previous="http://example.com/page/2"
         onPageChange={handlePageChange}
       />
     );
@@ -49,9 +46,8 @@ describe("Pagination component", () => {
     const handlePageChange = vi.fn();
     const { getByText } = render(
       <Pagination
-        currentPage={1}
-        totalTasks={15}
-        pageSize={5}
+        next="http://example.com/page/2"
+        previous={null}
         onPageChange={handlePageChange}
       />
     );
@@ -63,9 +59,8 @@ describe("Pagination component", () => {
     const handlePageChange = vi.fn();
     const { getByText } = render(
       <Pagination
-        currentPage={2}
-        totalTasks={15}
-        pageSize={5}
+        next="http://example.com/page/3"
+        previous="http://example.com/page/1"
         onPageChange={handlePageChange}
       />
     );

@@ -81,6 +81,7 @@
     height: 1.5rem;;
     margin: 10px 0 0; /* Position at the bottom with margin-top */
     order: 3; /* Make the search bar appear last */
+    margin-bottom: 0.5rem;
   }
 
   .titleContainer,
@@ -105,5 +106,6 @@
 
   .buttonsContainer {
     order: 2; /* Buttons come after the title */
+    margin-bottom: 0.5rem;
   }
 }
